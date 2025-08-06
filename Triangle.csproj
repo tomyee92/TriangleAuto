@@ -257,6 +257,12 @@
     <Compile Include="Forms\MacroSwitchForm.Designer.cs">
       <DependentUpon>MacroSwitchForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\ManualClientConfigForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ManualClientConfigForm.Designer.cs">
+      <DependentUpon>ManualClientConfigForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\ServersForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -611,7 +617,7 @@
   <Import Project="packages\Fody.6.5.5\build\Fody.targets" Condition="Exists('packages\Fody.6.5.5\build\Fody.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
-      <ErrorText>Este projeto faz referência a pacotes do NuGet que não estão presentes neste computador. Use a Restauração de Pacotes do NuGet para baixá-los.  Para obter mais informações, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente é {0}.</ErrorText>
+      <ErrorText>Este projeto faz referï¿½ncia a pacotes do NuGet que nï¿½o estï¿½o presentes neste computador. Use a Restauraï¿½ï¿½o de Pacotes do NuGet para baixï¿½-los.  Para obter mais informaï¿½ï¿½es, consulte http://go.microsoft.com/fwlink/?LinkID=322105. O arquivo ausente ï¿½ {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\Fody.6.5.5\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Fody.6.5.5\build\Fody.targets'))" />
     <Error Condition="!Exists('packages\Costura.Fody.5.7.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Costura.Fody.5.7.0\build\Costura.Fody.props'))" />

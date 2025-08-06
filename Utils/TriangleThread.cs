@@ -9,13 +9,14 @@ namespace TriangleAuto.Utils
     public class TriangleThread
     {
         private Thread thread;
-
+        private CancellationTokenSource cancellationTokenSource;
 
         public TriangleThread(Func<int, int> toRun)
         {
+            this.cancellationTokenSource = new CancellationTokenSource();
             this.thread = new Thread(() =>
             {
-                while (true)
+                while (!cancellationTokenSource.Token.IsCancellationRequested)
                 {
                     try
                     {
@@ -42,11 +43,11 @@ namespace TriangleAuto.Utils
             if (triangleThread != null && triangleThread.thread.IsAlive)
             {
                 try { 
-                
-                    triangleThread.thread.Suspend();
+                    triangleThread.cancellationTokenSource.Cancel();
+                    triangleThread.thread.Join(1000); // Wait up to 1 second for thread to finish
                 }
                 catch (Exception ex) {
-                    Console.WriteLine("[Triangle Thread Exception] =========== We could not suspend curren thread: " + ex);
+                    Console.WriteLine("[Triangle Thread Exception] =========== We could not stop current thread: " + ex);
                 }
             }
         }

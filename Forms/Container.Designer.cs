@@ -34,6 +34,8 @@ namespace TriangleAuto.Forms
             this.lblProcessName = new System.Windows.Forms.Label();
             this.processCB = new System.Windows.Forms.ComboBox();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnManualConfig = new System.Windows.Forms.Button();
+            this.btnShowAll = new System.Windows.Forms.Button();
             this.tabPageSpammer = new System.Windows.Forms.TabPage();
             this.tabPageAutobuffSkill = new System.Windows.Forms.TabPage();
             this.atkDefMode = new System.Windows.Forms.TabControl();
@@ -62,6 +64,8 @@ namespace TriangleAuto.Forms
             this.tabPageYggAutopot = new System.Windows.Forms.TabPage();
             this.tabPageSkillTimer = new System.Windows.Forms.TabPage();
             this.panelAdvertisement = new System.Windows.Forms.Panel();
+            this.lblHPInfo = new System.Windows.Forms.Label();
+            this.hpValue = new System.Windows.Forms.Label();
             this.atkDefMode.SuspendLayout();
             this.panelFooter.SuspendLayout();
             this.tabControlAutopot.SuspendLayout();
@@ -95,6 +99,26 @@ namespace TriangleAuto.Forms
             this.btnRefresh.TabIndex = 5;
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // btnManualConfig
+            // 
+            this.btnManualConfig.Location = new System.Drawing.Point(226, 28);
+            this.btnManualConfig.Name = "btnManualConfig";
+            this.btnManualConfig.Size = new System.Drawing.Size(75, 23);
+            this.btnManualConfig.TabIndex = 27;
+            this.btnManualConfig.Text = "Manual Config";
+            this.btnManualConfig.UseVisualStyleBackColor = true;
+            this.btnManualConfig.Click += new System.EventHandler(this.btnManualConfig_Click);
+            // 
+            // btnShowAll
+            // 
+            this.btnShowAll.Location = new System.Drawing.Point(307, 28);
+            this.btnShowAll.Name = "btnShowAll";
+            this.btnShowAll.Size = new System.Drawing.Size(60, 23);
+            this.btnShowAll.TabIndex = 28;
+            this.btnShowAll.Text = "Show All";
+            this.btnShowAll.UseVisualStyleBackColor = true;
+            this.btnShowAll.Click += new System.EventHandler(this.btnShowAll_Click);
             // 
             // tabPageSpammer
             // 
@@ -321,6 +345,26 @@ namespace TriangleAuto.Forms
             this.characterName.TabIndex = 20;
             this.characterName.Text = "- -";
             // 
+            // lblHPInfo
+            // 
+            this.lblHPInfo.AutoSize = true;
+            this.lblHPInfo.Location = new System.Drawing.Point(362, 240);
+            this.lblHPInfo.Name = "lblHPInfo";
+            this.lblHPInfo.Size = new System.Drawing.Size(25, 13);
+            this.lblHPInfo.TabIndex = 29;
+            this.lblHPInfo.Text = "HP:";
+            // 
+            // hpValue
+            // 
+            this.hpValue.AutoSize = true;
+            this.hpValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.hpValue.ForeColor = System.Drawing.Color.Blue;
+            this.hpValue.Location = new System.Drawing.Point(387, 240);
+            this.hpValue.Name = "hpValue";
+            this.hpValue.Size = new System.Drawing.Size(19, 13);
+            this.hpValue.TabIndex = 30;
+            this.hpValue.Text = "- -";
+            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.Silver;
@@ -389,6 +433,8 @@ namespace TriangleAuto.Forms
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.characterName);
             this.Controls.Add(this.lblCharacterName);
+            this.Controls.Add(this.lblHPInfo);
+            this.Controls.Add(this.hpValue);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.labelProfile);
@@ -397,6 +443,8 @@ namespace TriangleAuto.Forms
             this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.lblProcessName);
             this.Controls.Add(this.processCB);
+            this.Controls.Add(this.btnManualConfig);
+            this.Controls.Add(this.btnShowAll);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -420,6 +468,8 @@ namespace TriangleAuto.Forms
         private System.Windows.Forms.Label lblProcessName;
         private System.Windows.Forms.ComboBox processCB;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnManualConfig;
+        private System.Windows.Forms.Button btnShowAll;
         private System.Windows.Forms.TabControl atkDefMode;
         private System.Windows.Forms.TabPage tabPageSpammer;
         private System.Windows.Forms.LinkLabel lblLinkDiscord;
@@ -448,5 +498,7 @@ namespace TriangleAuto.Forms
         private TabPage tabPageSkillTimer;
         private TabPage tabPageServer;
         private Panel panelAdvertisement;
+        private Label lblHPInfo;
+        private Label hpValue;
     }
 }

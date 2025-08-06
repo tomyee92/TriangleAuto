@@ -83,7 +83,7 @@ namespace TriangleAuto.Model
 
     public class Client
     {
-        public Process process { get; }
+        public Process process { get; private set; }
 
         public string processName { get; private set; }
         private Utils.ProcessMemoryReader PMR { get; set; }
@@ -98,6 +98,24 @@ namespace TriangleAuto.Model
             this.currentHPBaseAddress = currentHPBaseAddress;
             this.processName = processName;
             this.statusBufferAddress = currentHPBaseAddress + 0x474;
+            
+            // Initialize ProcessMemoryReader for manual configuration
+            InitializeProcessMemoryReader(processName);
+        }
+
+        // New constructor for direct process with manual addresses
+        public Client(Process process, int currentHPBaseAddress, int currentNameAddress)
+        {
+            this.process = process;
+            this.processName = process.ProcessName;
+            this.currentHPBaseAddress = currentHPBaseAddress;
+            this.currentNameAddress = currentNameAddress;
+            this.statusBufferAddress = currentHPBaseAddress + 0x474;
+            
+            // Initialize ProcessMemoryReader
+            PMR = new Utils.ProcessMemoryReader();
+            PMR.ReadProcess = process;
+            PMR.OpenProcess();
         }
 
         public Client(ClientDTO dto)
@@ -106,6 +124,9 @@ namespace TriangleAuto.Model
             this.currentHPBaseAddress = Convert.ToInt32(dto.hpAddress, 16);
             this.currentNameAddress = Convert.ToInt32(dto.nameAddress, 16);
             this.statusBufferAddress = this.currentHPBaseAddress + 0x474;
+            
+            // Initialize ProcessMemoryReader for DTO configuration
+            InitializeProcessMemoryReader(dto.name);
         }
 
         public Client(string processName)
@@ -119,6 +140,7 @@ namespace TriangleAuto.Model
                 if (choosenPID == process.Id)
                 {
                     this.process = process;
+                    this.processName = rawProcessName;
                     PMR.ReadProcess = process;
                     PMR.OpenProcess();
 
@@ -133,14 +155,49 @@ namespace TriangleAuto.Model
                         this.statusBufferAddress = c.statusBufferAddress;
                     }catch
                     {
-                        MessageBox.Show("This client is not supported. Only Spammers and macro will works.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        // Don't show message box here, let the calling code handle it
+                        // Just set addresses to 0 to indicate this client is not in the supported list
                         this.currentHPBaseAddress = 0;
                         this.currentNameAddress = 0;
                         this.statusBufferAddress = 0;
                     }
                    
                     //Do not block spammer for non supported Versions
-                       
+                    break;
+                }
+            }
+        }
+
+        // Helper method to initialize ProcessMemoryReader for string-based process names
+        private void InitializeProcessMemoryReader(string processNameWithPID)
+        {
+            PMR = new Utils.ProcessMemoryReader();
+            
+            if (processNameWithPID.Contains(".exe - "))
+            {
+                string rawProcessName = processNameWithPID.Split(new string[] { ".exe - " }, StringSplitOptions.None)[0];
+                int choosenPID = int.Parse(processNameWithPID.Split(new string[] { ".exe - " }, StringSplitOptions.None)[1]);
+
+                foreach (Process proc in Process.GetProcessesByName(rawProcessName))
+                {
+                    if (choosenPID == proc.Id)
+                    {
+                        this.process = proc;
+                        PMR.ReadProcess = proc;
+                        PMR.OpenProcess();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                // Handle simple process name
+                Process[] processes = Process.GetProcessesByName(processNameWithPID);
+                if (processes.Length > 0)
+                {
+                    this.process = processes[0];
+                    PMR.ReadProcess = this.process;
+                    PMR.OpenProcess();
                 }
             }
         }

@@ -41,7 +41,7 @@ namespace TriangleAuto.Forms
             catch(Exception ex)
             {
                 //If catch some exception while Fetch, load resource file.
-                MessageBox.Show("Cannot load supported_servers file. Loading resource instead....");
+                MessageBox.Show($"Cannot load supported_servers file. Loading resource instead. Error: {ex.Message}");
                 clients.AddRange(JsonConvert.DeserializeObject<List<ClientDTO>>(LoadResourceServerFile()));
             }
             finally
